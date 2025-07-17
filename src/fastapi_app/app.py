@@ -53,7 +53,7 @@ def get_direct_db_connection():
         return None
 
 @app.get("/direct-details", response_class=HTMLResponse)
-async def direct_details(request: Request, submission_id: int = Query(...)):
+async def direct_details(request: Request, submission_id: str = Query(...)):
     conn = get_direct_db_connection()
     if not conn:
         logger.error("Failed to connect to the database.")
