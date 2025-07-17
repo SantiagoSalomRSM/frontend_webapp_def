@@ -1,1 +1,6 @@
-gunicorn==22.0.0
+# global requirements
+gunicorn
+uvicorn
+fastapi
+psycopg2
+markdown
