@@ -59,7 +59,7 @@ async def direct_details(request: Request, submission_id: str = Query(...)):
         logger.error("Failed to connect to the database.")
         return HTMLResponse(content="Database connection error", status_code=500)
     cur = conn.cursor()
-    cur.execute("SELECT result_client description FROM form_ai_db WHERE id = %s", (submission_id,))
+    cur.execute("SELECT result_client FROM form_ai_db WHERE submission_id = %s", (submission_id,))
     row = cur.fetchone()
     cur.close()
     conn.close()
