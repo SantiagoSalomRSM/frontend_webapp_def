@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalles del Resultado</title>
-    <link rel="stylesheet" href="/mount/styles.css"> <!-- Si tienes estilos globales -->
+    <link rel="stylesheet" href="/mount/styles.css"> <!-- Opcional -->
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -26,6 +26,12 @@
             max-width: 800px;
             width: 100%;
             animation: fadeIn 0.5s ease-out;
+            text-align: center;
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 1.5rem;
         }
 
         h1 {
@@ -39,6 +45,23 @@
         .content {
             font-size: 1rem;
             line-height: 1.7;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #005eb8;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #004a94;
         }
 
         @keyframes fadeIn {
@@ -55,10 +78,14 @@
 </head>
 <body>
     <div class="container">
+        <img class="logo" src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png" alt="RSM Logo">
         <h1>Resultado de la Petición</h1>
         <div class="content">
             {{ results_client|safe }}
         </div>
+        <a class="contact-button" href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
+            Contactar con RSM
+        </a>
     </div>
 </body>
 </html>
