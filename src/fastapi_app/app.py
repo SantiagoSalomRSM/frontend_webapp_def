@@ -20,7 +20,7 @@ if os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"):
 # Setup FastAPI app:
 app = FastAPI()
 parent_path = pathlib.Path(__file__).parent.parent
-app.mount("/mount", StaticFiles(directory=parent_path / "static"), name="static")
+app.mount("/static", StaticFiles(directory=parent_path / "static"), name="static")
 templates = Jinja2Templates(directory=parent_path / "templates")
 templates.env.globals["prod"] = os.environ.get("RUNNING_IN_PRODUCTION", False)
 # Use relative path for url_for, so that it works behind a proxy like Codespaces
