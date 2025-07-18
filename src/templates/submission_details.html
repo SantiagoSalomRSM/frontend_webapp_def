@@ -1,16 +1,20 @@
-<!-- templates/submission_details.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Detalles del Resultado</title>
     <style>
+        /* Reset básico */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f8;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #2e3a59;
             margin: 0;
-            padding: 2rem;
+            padding: 3rem 1rem;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -18,104 +22,155 @@
         }
 
         .container {
-            background-color: #fff;
-            padding: 2rem 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            max-width: 800px;
+            background-color: #ffffff;
+            padding: 3rem 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(46, 58, 89, 0.1);
+            max-width: 720px;
             width: 100%;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeInUp 0.6s ease forwards;
             text-align: center;
         }
 
         .logo {
-            width: 180px;
-            margin-bottom: 1.5rem;
+            width: 160px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.05));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         h1 {
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
-            color: #2c3e50;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 2.4rem;
+            margin-bottom: 2rem;
+            color: #1a273e;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 0.75rem;
+            letter-spacing: 0.03em;
         }
 
         .content {
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
             text-align: left;
+            color: #444d66;
+        }
+
+        /* Mejor estructura para las secciones */
+        .content section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e6f1;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.2rem;
+            color: #004a94;
+            font-weight: 600;
+        }
+
+        .content p {
+            margin-bottom: 1.2rem;
+            color: #5a678d;
+        }
+
+        .content ul {
+            list-style: disc inside;
+            padding-left: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: #3b455e;
+        }
+
+        .content li {
+            margin-bottom: 0.7rem;
+            line-height: 1.5;
+        }
+
+        .content strong {
+            color: #0066cc;
+            font-weight: 600;
         }
 
         .contact-button {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: #005eb8;
-            color: white;
+            padding: 0.9rem 2.2rem;
+            background-color: #0066cc;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 10px;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.3);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
         }
 
-        .contact-button:hover {
+        .contact-button:hover,
+        .contact-button:focus {
             background-color: #004a94;
+            box-shadow: 0 10px 25px rgba(0, 74, 148, 0.5);
+            outline: none;
         }
 
-        @keyframes fadeIn {
+        /* Animación */
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        .content section {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #eee;
-        }
 
-        .content h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #004a94;
-        }
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+                max-width: 100%;
+            }
 
-        .content p {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            color: #555;
-        }
+            h1 {
+                font-size: 1.8rem;
+            }
 
-        .content ul {
-            list-style: disc inside;
-            padding-left: 1rem;
-            margin-bottom: 1rem;
-            color: #444;
-        }
+            .content h2 {
+                font-size: 1.4rem;
+            }
 
-        .content li {
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .content strong {
-            color: #005eb8;
+            .contact-button {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img class="logo" src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png" alt="RSM Logo">
-        <h1>Resultado de la Petición</h1>
-        <div class="content">
+    <div class="container" role="main" aria-labelledby="pageTitle">
+        <img
+            class="logo"
+            src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
+            alt="Logo de RSM"
+            loading="lazy"
+            width="160"
+            height="auto"
+        />
+        <h1 id="pageTitle">Resultado de la Petición</h1>
+        <div class="content" aria-live="polite">
             {{ results_client|safe }}
         </div>
-        <a class="contact-button" href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
+        <a
+            class="contact-button"
+            href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición"
+            role="button"
+        >
             Contactar con RSM
         </a>
     </div>
