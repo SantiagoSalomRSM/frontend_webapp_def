@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Resultado de la Petición</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
   <style>
     :root {
       --color-bg: #f6f8fb;
@@ -44,25 +45,6 @@
       padding: 5vh 2rem;
       line-height: 1.8;
       font-size: 18px;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 9999px;
-      padding: 0.4rem 0.6rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--color-border);
     }
 
     .card {
@@ -156,6 +138,24 @@
       }
     }
 
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
     @media (max-width: 768px) {
       .card {
         padding: 2rem 1.5rem;
@@ -172,6 +172,12 @@
       .cta a, .cta button {
         font-size: 1rem;
         padding: 0.8rem 1.6rem;
+      }
+
+      .theme-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
       }
     }
 
@@ -195,7 +201,7 @@
 
       .cta,
       .theme-toggle {
-        display: none !important;
+        display: none;
       }
 
       h1 {
@@ -215,11 +221,9 @@
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">
-    🌙/☀️
-  </button>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">🌓</button>
 
-  <div class="card" role="main" aria-labelledby="mainTitle">
+  <div class="card" role="main" id="pdf-content" aria-labelledby="mainTitle">
     <img
       class="logo"
       src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
@@ -234,8 +238,10 @@
     </div>
 
     <div class="cta">
-      <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">Contactar con RSM</a>
-      <button onclick="window.print()">🧾 Imprimir / Guardar PDF</button>
+      <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
+        Contactar con RSM
+      </a>
+      <button onclick="downloadPDF()">🧾 Descargar PDF</button>
     </div>
   </div>
 
@@ -251,6 +257,18 @@
         document.documentElement.setAttribute("data-theme", "dark");
       }
     });
+
+    function downloadPDF() {
+      const element = document.getElementById('pdf-content');
+      const opt = {
+        margin:       0.5,
+        filename:     'resultado_peticion.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
   </script>
 </body>
 </html>
