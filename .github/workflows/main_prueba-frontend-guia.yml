@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       
-       - name: Download frontend repo
+      - name: Download frontend repo
         run: git clone https://github.com/andrewagain/emoji-search.git frontend
 
       # Frontend: Set up Node and build React
