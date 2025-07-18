@@ -46,6 +46,25 @@
       font-size: 18px;
     }
 
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 9999px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-border);
+    }
+
     .card {
       background-color: var(--color-surface);
       max-width: 1120px;
@@ -174,8 +193,9 @@
         max-width: 180px;
       }
 
-      .cta {
-        display: none;
+      .cta,
+      .theme-toggle {
+        display: none !important;
       }
 
       h1 {
@@ -195,6 +215,10 @@
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">
+    🌙/☀️
+  </button>
+
   <div class="card" role="main" aria-labelledby="mainTitle">
     <img
       class="logo"
@@ -210,11 +234,8 @@
     </div>
 
     <div class="cta">
-      <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
-        Contactar con RSM
-      </a>
-      <button onclick="toggleTheme()">🌙/☀️ Tema</button>
-      <button onclick="window.print()">🧾 Descargar PDF</button>
+      <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">Contactar con RSM</a>
+      <button onclick="window.print()">🧾 Imprimir / Guardar PDF</button>
     </div>
   </div>
 
@@ -225,7 +246,6 @@
       html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
     }
 
-    // Opcional: detectar el sistema y activar el tema automáticamente
     window.addEventListener("DOMContentLoaded", () => {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         document.documentElement.setAttribute("data-theme", "dark");
