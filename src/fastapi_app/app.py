@@ -5,7 +5,7 @@ import pathlib
 import markdown
 import psycopg2
 from fastapi import FastAPI, Request, Query
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from azure.monitor.opentelemetry import configure_azure_monitor
