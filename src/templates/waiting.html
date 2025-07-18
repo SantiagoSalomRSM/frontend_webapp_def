@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Procesando...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --color-bg: #f4f6f8;
-      --color-bg-gradient: linear-gradient(to right, #f5f7fa, #c3cfe2);
-      --color-text: #2c3e50;
-      --color-muted: #6b7280;
-      --color-primary: #005eb8;
+      --bg-gradient: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      --text-main: #1e293b;
+      --text-muted: #6b7280;
+      --primary: #005eb8;
+      --primary-dark: #004a94;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --color-bg: #0f172a;
-        --color-bg-gradient: linear-gradient(to right, #1e293b, #334155);
-        --color-text: #e2e8f0;
-        --color-muted: #9ca3af;
-        --color-primary: #3b82f6;
+        --bg-gradient: linear-gradient(to right, #1e293b, #334155);
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
       }
     }
 
     html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-      background: var(--color-bg-gradient);
-      background-attachment: fixed;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      color: var(--color-text);
       height: 100%;
+      background: var(--bg-gradient);
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -41,44 +37,113 @@
       text-align: center;
     }
 
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .svg-loader {
+      width: 80px;
+      height: 80px;
+    }
+
+    .progress-bar {
+      width: 240px;
+      height: 6px;
+      background-color: #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      transition: width 1s ease;
+    }
+
     h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 600;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
     }
 
     p {
       font-size: 1.1rem;
-      color: var(--color-muted);
-      max-width: 480px;
+      color: var(--text-muted);
+      max-width: 460px;
     }
 
-    /* Spinner animation */
-    .loader {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 6px solid #ccc;
-      border-top-color: var(--color-primary);
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Accessibility: hide on print */
     @media print {
-      .loader, h2, p {
-        display: none;
+      * {
+        display: none !important;
       }
     }
   </style>
+</head>
+<body role="status" aria-live="polite">
+  <div class="loader-wrapper">
+    <!-- SVG Loader Corporativo -->
+    <svg class="svg-loader" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" stroke="#ccc" stroke-width="10" fill="none" />
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
+        stroke="var(--primary)"
+        stroke-width="10"
+        fill="none"
+        stroke-dasharray="282"
+        stroke-dashoffset="75"
+        stroke-linecap="round"
+      >
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="0 50 50"
+          to="360 50 50"
+          dur="1.2s"
+          repeatCount="indefinite"
+        />
+      </circle>
+    </svg>
+
+    <h2 id="status-title">Procesando su petición...</h2>
+    <p id="status-desc">Preparando el entorno de análisis...</p>
+
+    <div class="progress-bar" aria-hidden="true">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
 
   <script>
+    const steps = [
+      'Preparando el entorno de análisis...',
+      'Cargando los datos ingresados...',
+      'Realizando validaciones internas...',
+      'Ejecutando modelo inteligente...',
+      'Formateando resultados para visualización...',
+      'Casi listo...'
+    ];
+
+    let currentStep = 0;
+    const desc = document.getElementById('status-desc');
+    const fill = document.getElementById('progress-fill');
+
+    function nextStep() {
+      if (currentStep < steps.length) {
+        desc.textContent = steps[currentStep];
+        fill.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+        currentStep++;
+        setTimeout(nextStep, 2000);
+      }
+    }
+
+    // Inicia animación
+    setTimeout(nextStep, 1000);
+
+    // Estado real
     async function checkStatus() {
       try {
         const response = await fetch(`/check-status?submission_id={{ submission_id }}`);
@@ -98,10 +163,5 @@
       setTimeout(checkStatus, 3000);
     };
   </script>
-</head>
-<body role="status" aria-live="polite">
-  <div class="loader" aria-label="Cargando..."></div>
-  <h2>Procesando su petición...</h2>
-  <p>Estamos trabajando en su solicitud. Esta página se actualizará automáticamente cuando los resultados estén listos.</p>
 </body>
 </html>
