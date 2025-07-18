@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing</title>
+    <script>
+        async function checkStatus() {
+            try {
+                const response = await fetch(`/check-status?submission_id={{ submission_id }}`);
+                const data = await response.json();
+                if (data.status === "success" || data.status === "error") {
+                    // Reload to get the final results or error page
+                    window.location.reload();
+                } else {
+                    setTimeout(checkStatus, 3000); // Retry after 3 seconds
+                }
+            } catch (err) {
+                console.error("Failed to check status", err);
+                setTimeout(checkStatus, 5000); // Retry slower on error
+            }
+        }
+        window.onload = function () {
+            setTimeout(checkStatus, 3000); // Initial delay
+        };
+    </script>
+</head>
+<body>
+    <h2>Your submission is being processed...</h2>
+    <p>Please wait. This page will automatically refresh once results are ready.</p>
+</body>
+</html>

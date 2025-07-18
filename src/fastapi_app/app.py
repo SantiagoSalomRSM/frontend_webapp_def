@@ -52,24 +52,59 @@ def get_direct_db_connection():
         logger.error(f"Database connection error: {e}")
         return None
 
-@app.get("/direct-details", response_class=HTMLResponse)
-async def direct_details(request: Request, submission_id: str = Query(...)):
+@app.get("/", response_class=HTMLResponse)
+async def fetch_details(request: Request, submission_id: str = Query(...)):
     conn = get_direct_db_connection()
     if not conn:
         logger.error("Failed to connect to the database.")
         return HTMLResponse(content="Database connection error", status_code=500)
+    
     cur = conn.cursor()
-    cur.execute("SELECT result_client FROM form_ai_db WHERE submission_id = %s", (submission_id,))
+    cur.execute(
+        "SELECT result_client, status FROM form_ai_db WHERE submission_id = %s",
+        (submission_id,)
+    )
     row = cur.fetchone()
     cur.close()
     conn.close()
+
     if not row:
         logger.warning(f"Submission ID {submission_id} not found in the database.")
         return HTMLResponse(content="submission_id not found", status_code=404)
-    markdown_content = row[0]
-    html_content = markdown.markdown(markdown_content)
+
+    result_client, status = row
+
+    if status == "processing":
+        # Render a "please wait" page with JS polling
+        return templates.TemplateResponse("waiting.html", {
+            "request": request,
+            "submission_id": submission_id
+        })
+
+    elif status == "error":
+        return HTMLResponse(content="An error occurred during processing.", status_code=500)
+
+    # status == "success"
+    html_content = markdown.markdown(result_client)
     logger.info(f"Retrieved results for submission ID {submission_id}.")
     return templates.TemplateResponse("direct_details.html", {
         "request": request,
         "results_client": html_content
     })
+
+@app.get("/check-status", response_class=JSONResponse)
+async def check_status(submission_id: str = Query(...)):
+    conn = get_direct_db_connection()
+    if not conn:
+        return JSONResponse({"status": "error", "message": "Database connection error"}, status_code=500)
+
+    cur = conn.cursor()
+    cur.execute("SELECT status FROM form_ai_db WHERE submission_id = %s", (submission_id,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if not row:
+        return JSONResponse({"status": "error", "message": "submission_id not found"}, status_code=404)
+
+    return JSONResponse({"status": row[0]})
