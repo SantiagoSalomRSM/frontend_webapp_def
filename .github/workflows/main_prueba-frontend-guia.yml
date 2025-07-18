@@ -31,29 +31,6 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-      
-      # Frontend: Set up Node and build React
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: |
-          npm install
-          npm ci
-
-      - name: Build React frontend
-        working-directory: frontend
-        env: 
-          NODE_OPTIONS: --openssl-legacy-provider
-        run: npm run build
-
-      - name: Copy React build to FastAPI
-        run: |
-          rm -rf src/fastapi_app/frontend_build
-          cp -r frontend/build src/fastapi_app/frontend_build
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
