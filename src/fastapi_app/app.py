@@ -70,7 +70,10 @@ async def fetch_details(request: Request, submission_id: str = Query(...)):
 
     if not row:
         logger.warning(f"Submission ID {submission_id} not found in the database.")
-        return HTMLResponse(content="submission_id not found", status_code=404)
+        return templates.TemplateResponse("waiting.html", {
+            "request": request,
+            "submission_id": submission_id
+        })
 
     result_client, status = row
 
@@ -108,3 +111,4 @@ async def check_status(submission_id: str = Query(...)):
         return JSONResponse({"status": "error", "message": "submission_id not found"}, status_code=404)
 
     return JSONResponse({"status": row[0]})
+    
