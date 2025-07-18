@@ -1,178 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Detalles del Resultado</title>
-    <style>
-        /* Reset básico */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>Detalles del Resultado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* ---- GENERAL RESET ---- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            color: #2e3a59;
-            margin: 0;
-            padding: 3rem 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .container {
-            background-color: #ffffff;
-            padding: 3rem 3.5rem;
-            border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(46, 58, 89, 0.1);
-            max-width: 720px;
-            width: 100%;
-            animation: fadeInUp 0.6s ease forwards;
-            text-align: center;
-        }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background-color: #f8f9fb;
+      color: #2b2d42;
+      line-height: 1.7;
+      font-size: 18px;
+      font-weight: 400;
+    }
 
-        .logo {
-            width: 160px;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.05));
-            transition: transform 0.3s ease;
-        }
+    /* ---- LAYOUT ---- */
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 4rem 2rem;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f4f6f8 0%, #e9ecf1 100%);
+    }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
+    .container {
+      background-color: #fff;
+      padding: 4rem;
+      border-radius: 20px;
+      max-width: 1080px;
+      width: 100%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+      animation: fadeIn 0.6s ease-out both;
+    }
 
-        h1 {
-            font-weight: 700;
-            font-size: 2.4rem;
-            margin-bottom: 2rem;
-            color: #1a273e;
-            border-bottom: 3px solid #0066cc;
-            padding-bottom: 0.75rem;
-            letter-spacing: 0.03em;
-        }
+    /* ---- HEADER ---- */
+    .logo {
+      width: 200px;
+      display: block;
+      margin: 0 auto 3rem auto;
+    }
 
-        .content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 3rem;
-            text-align: left;
-            color: #444d66;
-        }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      color: #1a1d29;
+      border-bottom: 3px solid #005eb8;
+      padding-bottom: 1rem;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.02em;
+    }
 
-        /* Mejor estructura para las secciones */
-        .content section {
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e0e6f1;
-        }
+    /* ---- CONTENT ---- */
+    .content {
+      color: #3f475c;
+      font-size: 1.1rem;
+    }
 
-        .content h2 {
-            font-size: 1.75rem;
-            margin-bottom: 1.2rem;
-            color: #004a94;
-            font-weight: 600;
-        }
+    .content section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e0e4ea;
+    }
 
-        .content p {
-            margin-bottom: 1.2rem;
-            color: #5a678d;
-        }
+    .content h2 {
+      font-size: 1.6rem;
+      color: #004a94;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
 
-        .content ul {
-            list-style: disc inside;
-            padding-left: 1.1rem;
-            margin-bottom: 1.2rem;
-            color: #3b455e;
-        }
+    .content p {
+      margin-bottom: 1.2rem;
+      color: #4e586e;
+    }
 
-        .content li {
-            margin-bottom: 0.7rem;
-            line-height: 1.5;
-        }
+    .content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
 
-        .content strong {
-            color: #0066cc;
-            font-weight: 600;
-        }
+    .content li {
+      margin-bottom: 0.7rem;
+    }
 
-        .contact-button {
-            display: inline-block;
-            padding: 0.9rem 2.2rem;
-            background-color: #0066cc;
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            text-decoration: none;
-            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.3);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            user-select: none;
-        }
+    .content strong {
+      color: #005eb8;
+      font-weight: 600;
+    }
 
-        .contact-button:hover,
-        .contact-button:focus {
-            background-color: #004a94;
-            box-shadow: 0 10px 25px rgba(0, 74, 148, 0.5);
-            outline: none;
-        }
+    /* ---- CTA BUTTON ---- */
+    .contact-button {
+      display: inline-block;
+      margin: 3rem auto 0 auto;
+      padding: 1rem 2.5rem;
+      background-color: #005eb8;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 18px rgba(0, 94, 184, 0.3);
+      text-align: center;
+    }
 
-        /* Animación */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .contact-button:hover {
+      background-color: #004a94;
+      box-shadow: 0 8px 22px rgba(0, 74, 148, 0.4);
+    }
 
-        /* Responsive */
-        @media (max-width: 480px) {
-            .container {
-                padding: 2rem 1.5rem;
-                max-width: 100%;
-            }
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-            h1 {
-                font-size: 1.8rem;
-            }
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2.5rem 1.5rem;
+      }
 
-            .content h2 {
-                font-size: 1.4rem;
-            }
+      h1 {
+        font-size: 2rem;
+      }
 
-            .contact-button {
-                padding: 0.8rem 1.8rem;
-                font-size: 1rem;
-            }
-        }
-    </style>
+      .content h2 {
+        font-size: 1.4rem;
+      }
+
+      .contact-button {
+        font-size: 1rem;
+        padding: 0.9rem 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page-wrapper">
     <div class="container" role="main" aria-labelledby="pageTitle">
-        <img
-            class="logo"
-            src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
-            alt="Logo de RSM"
-            loading="lazy"
-            width="160"
-            height="auto"
-        />
-        <h1 id="pageTitle">Resultado de la Petición</h1>
-        <div class="content" aria-live="polite">
-            {{ results_client|safe }}
-        </div>
-        <a
-            class="contact-button"
-            href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición"
-            role="button"
-        >
-            Contactar con RSM
-        </a>
+      <img
+        class="logo"
+        src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
+        alt="Logo de RSM"
+        loading="lazy"
+      />
+      <h1 id="pageTitle">Resultado de la Petición</h1>
+      <div class="content" aria-live="polite">
+        {{ results_client|safe }}
+      </div>
+      <a
+        class="contact-button"
+        href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición"
+        role="button"
+      >
+        Contactar con RSM
+      </a>
     </div>
+  </div>
 </body>
 </html>
