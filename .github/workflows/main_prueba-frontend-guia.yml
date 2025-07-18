@@ -49,6 +49,8 @@ jobs:
 
       - name: Build React frontend
         working-directory: frontend
+        env: 
+          NODE_OPTIONS: --openssl-legacy-provider
         run: npm run build
 
       - name: Copy React build to FastAPI
