@@ -57,7 +57,7 @@ async def fetch_details(request: Request, submission_id: str = Query(...)):
     conn = get_direct_db_connection()
     if not conn:
         logger.error("Failed to connect to the database.")
-        return HTMLResponse(content="Database connection error", status_code=500)
+        return HTMLResponse(content="Error de conexión a la Base de Datos", status_code=500)
     
     cur = conn.cursor()
     cur.execute(
@@ -85,12 +85,12 @@ async def fetch_details(request: Request, submission_id: str = Query(...)):
         })
 
     elif status == "error":
-        return HTMLResponse(content="An error occurred during processing.", status_code=500)
+        return HTMLResponse(content="Ha ocurrido un error durante el procesado.", status_code=500)
 
     # status == "success"
     html_content = markdown.markdown(result_client)
     logger.info(f"Retrieved results for submission ID {submission_id}.")
-    return templates.TemplateResponse("direct_details.html", {
+    return templates.TemplateResponse("submission_details.html", {
         "request": request,
         "results_client": html_content
     })

@@ -1,30 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Processing</title>
+    <meta charset="UTF-8">
+    <title>Procesando...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 6px solid #ccc;
+            border-top-color: #4A90E2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
     <script>
         async function checkStatus() {
             try {
                 const response = await fetch(`/check-status?submission_id={{ submission_id }}`);
                 const data = await response.json();
                 if (data.status === "success" || data.status === "error") {
-                    // Reload to get the final results or error page
                     window.location.reload();
                 } else {
-                    setTimeout(checkStatus, 3000); // Retry after 3 seconds
+                    setTimeout(checkStatus, 3000);
                 }
             } catch (err) {
                 console.error("Failed to check status", err);
-                setTimeout(checkStatus, 5000); // Retry slower on error
+                setTimeout(checkStatus, 5000);
             }
         }
+
         window.onload = function () {
-            setTimeout(checkStatus, 3000); // Initial delay
+            setTimeout(checkStatus, 3000);
         };
     </script>
 </head>
 <body>
-    <h2>Your submission is being processed...</h2>
-    <p>Please wait. This page will automatically refresh once results are ready.</p>
+    <div class="spinner"></div>
+    <h2>Procesando su petición...</h2>
+    <p>Por favor espere. Esta página se actualizará automáticamente cuando los resultados estén listos.</p>
 </body>
 </html>
