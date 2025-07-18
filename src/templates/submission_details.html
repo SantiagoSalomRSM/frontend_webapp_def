@@ -2,130 +2,132 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Detalles del Resultado</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultado de la Petición</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* ---- GENERAL RESET ---- */
+    :root {
+      --color-bg: #f6f8fb;
+      --color-surface: #ffffff;
+      --color-text: #1e293b;
+      --color-muted: #4e586e;
+      --color-border: #e3e8f0;
+      --color-accent: #005eb8;
+      --color-accent-dark: #004a94;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg: #111827;
+        --color-surface: #1f2937;
+        --color-text: #e5e7eb;
+        --color-muted: #9ca3af;
+        --color-border: #374151;
+        --color-accent: #3b82f6;
+        --color-accent-dark: #2563eb;
+      }
+    }
+
+    /* Reset & Base */
     *, *::before, *::after {
       box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
+      background-color: var(--color-bg);
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-      background-color: #f8f9fb;
-      color: #2b2d42;
-      line-height: 1.7;
-      font-size: 18px;
-      font-weight: 400;
-    }
-
-    /* ---- LAYOUT ---- */
-    .page-wrapper {
+      color: var(--color-text);
+      background-color: var(--color-bg);
       display: flex;
       justify-content: center;
-      padding: 4rem 2rem;
-      min-height: 100vh;
-      background: linear-gradient(180deg, #f4f6f8 0%, #e9ecf1 100%);
+      padding: 5vh 2rem;
+      line-height: 1.8;
+      font-size: 18px;
     }
 
-    .container {
-      background-color: #fff;
-      padding: 4rem;
-      border-radius: 20px;
-      max-width: 1080px;
+    .card {
+      background-color: var(--color-surface);
+      max-width: 1120px;
       width: 100%;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-      animation: fadeIn 0.6s ease-out both;
-    }
-
-    /* ---- HEADER ---- */
-    .logo {
-      width: 200px;
-      display: block;
-      margin: 0 auto 3rem auto;
+      border-radius: 24px;
+      padding: 4rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+      animation: fadeInUp 0.6s ease-out both;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 600;
       text-align: center;
-      color: #1a1d29;
-      border-bottom: 3px solid #005eb8;
-      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-border);
       margin-bottom: 2.5rem;
-      letter-spacing: 0.02em;
+      padding-bottom: 1.2rem;
     }
 
-    /* ---- CONTENT ---- */
+    .logo {
+      display: block;
+      margin: 0 auto 2rem auto;
+      max-width: 220px;
+    }
+
     .content {
-      color: #3f475c;
-      font-size: 1.1rem;
+      color: var(--color-muted);
     }
 
     .content section {
       margin-bottom: 2.5rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid #e0e4ea;
+      border-bottom: 1px solid var(--color-border);
     }
 
     .content h2 {
-      font-size: 1.6rem;
-      color: #004a94;
-      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--color-accent);
       margin-bottom: 1rem;
-    }
-
-    .content p {
-      margin-bottom: 1.2rem;
-      color: #4e586e;
-    }
-
-    .content ul {
-      padding-left: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .content li {
-      margin-bottom: 0.7rem;
+      font-weight: 600;
     }
 
     .content strong {
-      color: #005eb8;
-      font-weight: 600;
+      color: var(--color-accent-dark);
     }
 
-    /* ---- CTA BUTTON ---- */
-    .contact-button {
+    .content ul {
+      list-style: disc inside;
+      margin: 1rem 0;
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+
+    .cta a {
       display: inline-block;
-      margin: 3rem auto 0 auto;
-      padding: 1rem 2.5rem;
-      background-color: #005eb8;
-      color: white;
-      font-size: 1.1rem;
+      background-color: var(--color-accent);
+      color: #fff;
       font-weight: 600;
-      border: none;
-      border-radius: 10px;
+      font-size: 1.1rem;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 18px rgba(0, 94, 184, 0.3);
-      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 94, 184, 0.3);
     }
 
-    .contact-button:hover {
-      background-color: #004a94;
-      box-shadow: 0 8px 22px rgba(0, 74, 148, 0.4);
+    .cta a:hover {
+      background-color: var(--color-accent-dark);
+      box-shadow: 0 14px 36px rgba(0, 74, 148, 0.35);
     }
 
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -133,10 +135,10 @@
       }
     }
 
-    /* ---- RESPONSIVE ---- */
+    /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        padding: 2.5rem 1.5rem;
+      .card {
+        padding: 2rem 1.5rem;
       }
 
       h1 {
@@ -144,34 +146,70 @@
       }
 
       .content h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
 
-      .contact-button {
+      .cta a {
         font-size: 1rem;
-        padding: 0.9rem 2rem;
+        padding: 0.8rem 2rem;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none !important;
+        border-radius: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      .logo {
+        max-width: 180px;
+      }
+
+      .cta {
+        display: none;
+      }
+
+      h1 {
+        border: none;
+        padding-bottom: 0.5rem;
+      }
+
+      .content section {
+        border: none;
+        margin-bottom: 2rem;
+      }
+
+      a[href]:after {
+        content: " (" attr(href) ")";
       }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="container" role="main" aria-labelledby="pageTitle">
-      <img
-        class="logo"
-        src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
-        alt="Logo de RSM"
-        loading="lazy"
-      />
-      <h1 id="pageTitle">Resultado de la Petición</h1>
-      <div class="content" aria-live="polite">
-        {{ results_client|safe }}
-      </div>
-      <a
-        class="contact-button"
-        href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición"
-        role="button"
-      >
+  <div class="card" role="main" aria-labelledby="mainTitle">
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/SantiagoSalomRSM/form_AI/master/images/RSM%20Standard%20Logo%20RGB.png"
+      alt="Logo de RSM"
+      width="220"
+      height="auto"
+      loading="lazy"
+    />
+    <h1 id="mainTitle">Resultado de la Petición</h1>
+    <div class="content" aria-live="polite">
+      {{ results_client|safe }}
+    </div>
+    <div class="cta">
+      <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
         Contactar con RSM
       </a>
     </div>
