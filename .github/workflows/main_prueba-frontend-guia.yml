@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set execute permission for entrypoint.sh
+        run: chmod +x ./src/entrypoint.sh
+        
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
