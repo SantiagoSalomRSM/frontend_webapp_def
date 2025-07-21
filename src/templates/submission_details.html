@@ -260,14 +260,19 @@
 
     function downloadPDF() {
       const element = document.getElementById('pdf-content');
-      const opt = {
-        margin:       0.5,
-        filename:     'resultado_peticion.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
+
+      // Esperar un poco para asegurar carga total (opcional pero útil)
+      setTimeout(() => {
+        const opt = {
+          margin: 0.5,
+          filename: 'resultado_peticion.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+      }, 500);
     }
   </script>
 </body>
