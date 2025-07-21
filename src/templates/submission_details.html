@@ -43,7 +43,7 @@
       background-color: var(--color-bg);
       display: flex;
       justify-content: center;
-      padding: 5vh 2rem;
+      padding: 2rem;
       line-height: 1.8;
       font-size: 18px;
     }
@@ -231,7 +231,6 @@
       alt="Logo de RSM"
       width="220"
       height="auto"
-      loading="lazy"
     />
     <h1 id="mainTitle">Resultado de la Petición</h1>
     <div class="content" aria-live="polite">
@@ -265,7 +264,7 @@
         margin:       0.5,
         filename:     'resultado_peticion.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
+        html2canvas:  { scale: 2, useCORS: true },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
       html2pdf().set(opt).from(element).save();
