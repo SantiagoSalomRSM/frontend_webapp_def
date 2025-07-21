@@ -242,7 +242,7 @@
       <a href="mailto:contacto@rsm.com?subject=Consulta%20sobre%20mi%20petición">
         Contactar con RSM
       </a>
-      <button onclick="downloadPDF()">🧾 Descargar PDF</button>
+      <button onclick="window.print()">🧾 Descargar PDF</button>
     </div>
   </div>
 
@@ -259,17 +259,6 @@
       }
     });
 
-    function downloadPDF() {
-      const element = document.getElementById('pdf-content');
-      const opt = {
-        margin:       0.5,
-        filename:     'resultado_peticion.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
-    }
   </script>
 </body>
 </html>
