@@ -110,4 +110,3 @@ async def check_status(submission_id: str = Query(...)):
         return JSONResponse({"status": "error", "message": "submission_id not found"}, status_code=404)
 
     return JSONResponse({"status": row[0]})
-    
