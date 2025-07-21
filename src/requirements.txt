@@ -1,6 +1,0 @@
-# global requirements
-gunicorn
-uvicorn
-fastapi
-psycopg2
-markdown

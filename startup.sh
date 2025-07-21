@@ -1,0 +1,1 @@
+python3 -m gunicorn src.fastapi_app.app:app -c src/gunicorn.conf.py
