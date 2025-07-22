@@ -1,1 +1,1 @@
-python -m uvicorn main:app --host 0.0.0.0
+python -m uvicorn src.fastapi_app.app:app --host 0.0.0.0 --port $PORT
