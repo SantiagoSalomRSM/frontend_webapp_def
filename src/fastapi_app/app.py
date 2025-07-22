@@ -52,7 +52,7 @@ async def fetch_details(request: Request, submission_id: str = Query(...)):
     if not conn:
         logger.error("Failed to connect to the database.")
         return HTMLResponse(content="Error de conexión a la Base de Datos", status_code=500)
-    
+    logger.info(f"Fetching details for submission ID: {submission_id}")
     cur = conn.cursor()
     cur.execute(
         "SELECT result_client, status FROM formai_db WHERE submission_id = %s",
