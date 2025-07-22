@@ -55,7 +55,7 @@ async def fetch_details(request: Request, submission_id: str = Query(...)):
     
     cur = conn.cursor()
     cur.execute(
-        "SELECT result_client, status FROM form_ai_db WHERE submission_id = %s",
+        "SELECT result_client, status FROM formai_db WHERE submission_id = %s",
         (submission_id,)
     )
     row = cur.fetchone()
@@ -96,7 +96,7 @@ async def check_status(submission_id: str = Query(...)):
         return JSONResponse({"status": "error", "message": "Database connection error"}, status_code=500)
 
     cur = conn.cursor()
-    cur.execute("SELECT status FROM form_ai_db WHERE submission_id = %s", (submission_id,))
+    cur.execute("SELECT status FROM formai_db WHERE submission_id = %s", (submission_id,))
     row = cur.fetchone()
     cur.close()
     conn.close()
