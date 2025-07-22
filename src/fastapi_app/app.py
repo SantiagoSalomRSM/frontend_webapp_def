@@ -8,14 +8,9 @@ from fastapi import FastAPI, Request, Query
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from azure.monitor.opentelemetry import configure_azure_monitor
-
 # Setup logger and Azure Monitor:
 logger = logging.getLogger("app")
 logger.setLevel(logging.INFO)
-if os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"):
-    configure_azure_monitor()
-
 
 # Setup FastAPI app:
 app = FastAPI()
